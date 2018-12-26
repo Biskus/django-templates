@@ -19,3 +19,7 @@ body{
   background-image:url("/static/img/amazon-networking-logo-transparent.png");
 }
 */
+
+.tag{
+	border-radius:20%;
+}

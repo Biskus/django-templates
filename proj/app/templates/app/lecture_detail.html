@@ -1,0 +1,41 @@
+{% extends "app/base.html" %}
+{% load bootstrap4 %}
+ 
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+	<h1 class="display-4">{{object.title}}</h1>
+	<p class="lead">{{object.undertitle|default_if_none:""}}</p>
+</div>
+<table class="table-bordered table-hover table">
+	<thead>
+	<!-- 
+	<tr>
+		<th>Beskrivelse</th>
+		<th>Verdi</th>
+	</tr>
+	 -->
+	</thead>
+	<tbody>
+		<tr><th>Tittel</th><td>{{object.title}}</td>
+		<tr><th>Beskrivelse</th><td>{{object.undertitle|default_if_none:""}}</td>
+		<tr><th>Publisert</th><td>{{object.pub_date|date:"l d. M Y"|capfirst}}</td>
+		<tr>
+			<th>Kategorier</th>
+			<td>
+				{% for t in object.tags.all %}
+					<span class="badge badge-pill badge-{{t.label}}">{{t.name}}</span>
+				{% endfor %}
+			</td>
+		</tr>
+		<tr>
+			<th>Link</th>
+			<td><a href="{{object.url}}">{{object.url}}</a></td>
+		</tr>
+		<tr>
+			<th>GDocs-presentasjonsmodus</th>
+			<td><a href="{{object.url}}/pub?start=false&loop=false&delayms=3000">{{object.url}}/pub?start=false&loop=false&delayms=3000</a></td>
+		</tr>
+		
+	</tbody>
+</table>
+{% endblock content %}
