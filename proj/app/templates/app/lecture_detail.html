@@ -6,6 +6,11 @@
 	<h1 class="display-4">{{object.title}}</h1>
 	<p class="lead">{{object.undertitle|default_if_none:""}}</p>
 </div>
+{% if perms.is_admin %}
+	<p>
+	<a href="{% url 'lecture_update' pk=object.pk %}" class="btn btn-warning">Rediger</a>
+	</p>
+{% endif %}
 <table class="table-bordered table-hover table">
 	<thead>
 	<!-- 

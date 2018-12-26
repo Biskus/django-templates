@@ -2,15 +2,23 @@
 
 {% block content %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h1 class="display-4">IKT-forelesninger</h1>
-	<p class="lead">Fra IKT, drift og nettverk til web og spillprogrammering.</p>
+	<h1 class="display-4">Leksjoner og forelesninger</h1>
+	<p><em>For IKT og Dataelektronikk</em></p>
+	<p class="lead">IKT-drift og nettverk, web og spillprogrammering</p>
 </div>
+	{% if perms.is_admin %}
+	<p>
+	<a href="{% url 'lecture_create' %}" class="btn btn-primary">Ny leksjon</a>
+	</p>
+	{% endif %}
+
 <table class="table-bordered table-hover table">
 	<thead>
 		<th>Id</th>
-		<th>Tittel</th>
-		<th>Url</th>
-		<th>Kategorier</th>
+		<th>Info</th>
+		<th>Link</th>
+		<th>Tema</th>
+		<th>Oppgaver</th>
 		<th>Publisert</th>
 		{% if perms.is_staff %}
 		<th>Rediger</th>
@@ -20,23 +28,32 @@
 		{% for l in object_list %}
 		<tr>
 			<td>{{l.pk}}</td>
-			<td><a href="{% url "lecture_detail" pk=l.pk %}"><b>{{l.title}}</b></a></td>
+			<td><a href="{% url "lecture_detail" pk=l.pk %}"><b>{{l.title}}</b>
+			{% if l.undertitle %}<br>
+			<em>{{l.undertitle}}</em>
+			{% endif %}
+			</a>
+			{% if l.target_audience %}<br>
+			<small>{{l.target_audience}}</small>
+			{% endif %}
+			</td>
 			<td><a href="{{l.url}}/pub?start=false&loop=false&delayms=3000">
-			GDocs</a>
+			<b>GDocs</b></a>
 			</td>
-			<!-- 
-			<td>
-				<iframe src="{{l.url}}/pub?start=false&loop=false&delayms=3000">
-					
-				</iframe>
-			</td>
-			 -->
+			
 			<td>
 				{% for t in l.tags.all %}
 					<span class="badge badge-pill badge-{{t.label}}">{{t.name}}</span>
 				{% endfor %}
 			</td>
-			<td>{{l.pub_date|date:"l d M Y"|capfirst}}</td>
+			<td>
+				<span class="badge badge-secondary">Antall: {{l.tasks|default_if_none:"-"}}</span>
+				<br>
+				<span class="badge badge-info">
+					Last opp
+				</span>
+			</td>
+			<td>{{l.pub_date|date:"d.m.y"|capfirst}}</td>
 			{% if perms.is_staff %}
 			<td>
 			<a class="badge badge-secondary" href="{% url "lecture_update" pk=l.pk %}">Rediger</a>
