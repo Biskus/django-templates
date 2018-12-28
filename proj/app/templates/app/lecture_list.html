@@ -15,7 +15,7 @@
 <table class="table-bordered table-hover table">
 	<thead>
 		<th>Id</th>
-		<th>Info</th>
+		<th>Beskrivelse</th>
 		<th>Link</th>
 		<th>Tema</th>
 		<th>Oppgaver</th>
@@ -49,9 +49,11 @@
 			<td>
 				<span class="badge badge-secondary">Antall: {{l.tasks|default_if_none:"-"}}</span>
 				<br>
+				<!-- 
 				<span class="badge badge-info">
 					Last opp
 				</span>
+				 -->
 			</td>
 			<td>{{l.pub_date|date:"d.m.y"|capfirst}}</td>
 			{% if perms.is_staff %}

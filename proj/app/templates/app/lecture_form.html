@@ -6,9 +6,13 @@
 	<h1 class="display-4">Ny leksjon/forelesning</h1>
 	<p class="lead"></p>
 </div>
+<div class="card">
+<div class="card-body">
 <form method="post">
 {% csrf_token %}
 {% bootstrap_form form %}
 <button type="submit" class="btn btn-primary">Lagre</button>
 </form>
+</div>
+</div>
 {% endblock content %}
