@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
 from app.models import Lecture, Tag
+from app.forms import TagForm
 
 
 
@@ -17,7 +18,8 @@ def home(request):
 class TagCreateView(CreateView):
     current_tab = 'tags'
     model = Tag
-    fields = ['name', 'label']
+    form_class = TagForm
+    #fields = ['name', 'label']
     all_tags = Tag.objects.all
     success_url = '/'
 

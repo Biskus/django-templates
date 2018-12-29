@@ -28,17 +28,18 @@
 		{% for l in object_list %}
 		<tr>
 			<td>{{l.pk}}</td>
-			<td><a href="{% url "lecture_detail" pk=l.pk %}"><b>{{l.title}}</b>
-			{% if l.undertitle %}<br>
-			<em>{{l.undertitle}}</em>
-			{% endif %}
-			</a>
-			{% if l.target_audience %}<br>
-			<small>{{l.target_audience}}</small>
-			{% endif %}
+			<td>
+				<a href="{% url "lecture_detail" pk=l.pk %}"><b>{{l.title}}</b>
+				{% if l.undertitle %}<br>
+				<em>{{l.undertitle}}</em>
+				{% endif %}
+				</a>
+				{% if l.target_audience %}<br>
+				<small>{{l.target_audience}}</small>
+				{% endif %}
 			</td>
 			<td><a href="{{l.url}}/pub?start=false&loop=false&delayms=3000">
-			<b>GDocs</b></a>
+				<b>GDocs</b></a>
 			</td>
 			
 			<td>
@@ -55,11 +56,15 @@
 				</span>
 				 -->
 			</td>
-			<td>{{l.pub_date|date:"d.m.y"|capfirst}}</td>
+			<td>
+				<b>{{l.pub_date|timesince}}</b>
+				<br>
+				{{l.pub_date|date:"d.m.y"|capfirst}}
+			</td>
 			{% if perms.is_staff %}
 			<td>
-			<a class="badge badge-secondary" href="{% url "lecture_update" pk=l.pk %}">Rediger</a>
-			<a class="badge badge-danger" href="{% url "lecture_delete" pk=l.pk %}">Slett</a>
+				<a class="badge badge-secondary" href="{% url "lecture_update" pk=l.pk %}">Rediger</a>
+				<a class="badge badge-danger" href="{% url "lecture_delete" pk=l.pk %}">Slett</a>
 			</td>
 			{% endif %}
 		</tr>

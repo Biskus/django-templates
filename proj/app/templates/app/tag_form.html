@@ -10,27 +10,40 @@
 </div>
 <div class="card">
 <div class="card-body">
-<p>Mulige Bootstrap-klasser:<br>
-<span class="badge badge-primary">Primary</span>
-<span class="badge badge-secondary">Secondary</span>
-<span class="badge badge-success">Success</span>
-<span class="badge badge-danger">Danger</span>
-<span class="badge badge-warning">Warning</span>
-<span class="badge badge-info">Info</span>
-<span class="badge badge-light">Light</span>
-<span class="badge badge-dark">Dark</span>
-</p>
-<p>Eksisterende tags: <br>
-{% for tag in view.all_tags %}
-	<a href="{% url 'tag_update' pk=tag.pk %}">
-	<span class="badge badge-{{tag.label}}">{{tag.name}}</span>
-	</a>
-{% endfor %}
-<form method="post">
-{% csrf_token %}
-{% bootstrap_form form %}
-<button type="submit" class="btn btn-primary">Lagre</button>
-</form>
+	<!-- 
+	<p>Mulige Bootstrap-klasser:<br>
+	<span class="badge badge-primary">Primary</span>
+	<span class="badge badge-secondary">Secondary</span>
+	<span class="badge badge-success">Success</span>
+	<span class="badge badge-danger">Danger</span>
+	<span class="badge badge-warning">Warning</span>
+	<span class="badge badge-info">Info</span>
+	<span class="badge badge-light">Light</span>
+	<span class="badge badge-dark">Dark</span>
+	</p>
+	 -->
+	<p>Eksisterende tags <b>({{view.all_tags.count}})</b>: <br>
+	{% for tag in view.all_tags %}
+		<a href="{% url 'tag_update' pk=tag.pk %}">
+		<span class="badge badge-{{tag.label}}">{{tag.name}}</span>
+		</a>
+	{% endfor %}
+	<form method="post">
+		{% csrf_token %}
+		<div class="form-group">
+			<label for="{{form.label.id_for_label}}">
+				{{form.label.label}}
+			</label>
+			{% for radio in form.label %}
+				<label class="badge badge-{{radio.data.value}}" for="{{radio.id_for_label}}">
+				{{radio.tag}}
+				{{radio.choice_label}} 
+				</label>
+			{% endfor %}
+		</div>
+		{% bootstrap_form form exclude="label" %}
+		<button type="submit" class="btn btn-primary">Lagre</button>
+	</form>
 </div>
 	</div>
 {% endblock content %}

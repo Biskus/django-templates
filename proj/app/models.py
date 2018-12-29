@@ -36,12 +36,29 @@ class Lecture(models.Model):
 
 
 class Tag(models.Model):
+    
     class Meta():
         ordering = ['-label']
+    admin_order_field = 'pk'
+    
     name = models.CharField(max_length=50, verbose_name='Navn')
     #https://getbootstrap.com/docs/4.0/components/badge/
     #Primary Secondary Success Danger Warning Info Light Dark
-    label = models.CharField(max_length=20, verbose_name='Bootstrap-klasse')
+    bootstrap_classes = [
+            ('primary','Primary'),
+            ('secondary','Secondary'),
+            ('success','Success'),
+            ('danger','Danger'),
+            ('warning','Warning'),
+            ('info','Info'),
+            ('light','Light'),
+            ('dark','Dark'),
+        ]
+    label = models.CharField(max_length=20, verbose_name='Farge',
+                             choices=bootstrap_classes, 
+                             blank=False, default='primary')
+    
+    
     
     def __repr__(self):
         return (str(self.pk) + " " + self.name)
