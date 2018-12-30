@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils.decorators import method_decorator
 
 from app.models import Lecture, Tag
-from app.forms import TagForm
+from app.forms import TagForm, LectureCreateForm
 
 
 
@@ -17,11 +17,12 @@ def home(request):
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class TagCreateView(CreateView):
     current_tab = 'tags'
+    heading = 'Ny tag'
     model = Tag
     form_class = TagForm
     #fields = ['name', 'label']
     all_tags = Tag.objects.all
-    success_url = '/'
+    success_url = '/tag/ny'
 
 class TagListView(ListView):
     current_tab = 'tags'
@@ -29,10 +30,13 @@ class TagListView(ListView):
 
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class TagUpdateView(UpdateView):
-    success_url = '/forelesninger'
+    success_url = '/tag/ny'
     current_tab = 'tags'
+    heading = 'Endre tag'
     model = Tag
-    fields = ['name','label',]
+    form_class = TagForm
+    all_tags = Tag.objects.all
+    #fields = ['name','label',]
 
 
 class LectureListView(ListView):
@@ -53,9 +57,10 @@ class LectureDeleteView(DeleteView):
 class LectureCreateView(CreateView):
     current_tab = 'lectures'
     model = Lecture
-    fields = ['url','title','undertitle','target_audience', 'pub_date','tags','tasks']
-    #success_url = '/forelesninger'
-
+    form_class = LectureCreateForm
+    #fields = ['url','title','undertitle','target_audience', 'pub_date','tags','tasks']
+    
+    
 @method_decorator(user_passes_test(lambda u: u.is_superuser), name='dispatch')
 class LectureUpdateView(UpdateView):
     success_url = '/forelesninger'

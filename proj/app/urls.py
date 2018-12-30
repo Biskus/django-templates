@@ -12,4 +12,5 @@ urlpatterns = [
     path(r'forelesninger', views.LectureListView.as_view(), name='lecture_list'),
     path(r'tag/ny', views.TagCreateView.as_view(), name='tag_create'),
     path(r'tag/rediger/<int:pk>', views.TagUpdateView.as_view(), name='tag_update'),
+    path(r'tag/', views.TagListView.as_view(), name='tag_list'),
 ]

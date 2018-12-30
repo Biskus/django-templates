@@ -28,7 +28,7 @@
 		{% for l in object_list %}
 		<tr>
 			<td>{{l.pk}}</td>
-			<td>
+			<td style="min-width:500px;">
 				<a href="{% url "lecture_detail" pk=l.pk %}"><b>{{l.title}}</b>
 				{% if l.undertitle %}<br>
 				<em>{{l.undertitle}}</em>

@@ -1,8 +1,7 @@
 from django import forms
-from app.models import Tag
+from app.models import Tag, Lecture
 from pprint import pprint
 class ColoredRadioSelect(forms.RadioSelect):
-    pass
     def render(self,**kw):
         ret = super().render(**kw)
         
@@ -38,6 +37,30 @@ class TagForm(forms.ModelForm):
         widgets = {
             'label':forms.RadioSelect, 
             }
-        
+
+class LectureCreateForm(forms.ModelForm):
     
-    
+    class Meta():
+        model = Lecture
+        fields = ['url','title','undertitle','target_audience', 'pub_date','tags','tasks']
+        widgets = {
+                'tags': forms.CheckboxSelectMultiple
+            }
+
+    fields = ['url','title','undertitle','target_audience', 'pub_date','tags','tasks']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

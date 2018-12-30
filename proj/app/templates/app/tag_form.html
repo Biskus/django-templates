@@ -3,7 +3,17 @@
  
 {% block content %}
 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-	<h1 class="display-4">Ny tag</h1>
+	<h1 class="display-4">
+		{% if view.heading %}
+		
+		{{view.heading|capfirst}}
+		
+		{% else %}
+		
+		Endre/opprette tag 
+		
+		{% endif %}
+	</h1>
 	<!-- 
 	<p class="lead">I forhold til leksjoner er en tag referert til som en "kategori"</p>
 	 -->
@@ -33,7 +43,7 @@
 		<div class="form-group">
 			<label for="{{form.label.id_for_label}}">
 				{{form.label.label}}
-			</label>
+			</label><br>
 			{% for radio in form.label %}
 				<label class="badge badge-{{radio.data.value}}" for="{{radio.id_for_label}}">
 				{{radio.tag}}
